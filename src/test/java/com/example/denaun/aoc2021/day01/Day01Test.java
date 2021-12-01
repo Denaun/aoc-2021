@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day01;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
@@ -38,8 +37,25 @@ public class Day01Test extends AocTestCase {
     }
 
     @Test
+    public void example2() {
+        var slidingSums = Day01.slidingSums(EXAMPLE_INPUT, 3);
+        assertThat(slidingSums)
+                .containsExactly(
+                        607,
+                        618,
+                        618,
+                        617,
+                        647,
+                        716,
+                        769,
+                        792);
+        assertThat(Day01.countIncrements(slidingSums))
+                .isEqualTo(5);
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day01.part2(input)).isEqualTo(1378);
     }
 }
