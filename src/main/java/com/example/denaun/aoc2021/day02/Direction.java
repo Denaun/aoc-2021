@@ -1,13 +1,13 @@
 package com.example.denaun.aoc2021.day02;
 
 sealed interface Direction {
-    Position move(Position p);
+    <T extends Movable<T>> T move(T p);
 }
 
 
 final record Forward(int step) implements Direction {
     @Override
-    public Position move(Position p) {
+    public <T extends Movable<T>> T move(T p) {
         return p.forward(step);
     }
 }
@@ -15,7 +15,7 @@ final record Forward(int step) implements Direction {
 
 final record Down(int step) implements Direction {
     @Override
-    public Position move(Position p) {
+    public <T extends Movable<T>> T move(T p) {
         return p.down(step);
     }
 }
@@ -23,7 +23,7 @@ final record Down(int step) implements Direction {
 
 final record Up(int step) implements Direction {
     @Override
-    public Position move(Position p) {
+    public <T extends Movable<T>> T move(T p) {
         return p.up(step);
     }
 }

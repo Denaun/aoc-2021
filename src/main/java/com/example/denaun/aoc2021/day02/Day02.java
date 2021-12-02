@@ -10,15 +10,20 @@ class Day02 {
 
     static int part1(String input) {
         var directions = PARSER.parse(input);
-        var position = finalPosition(directions);
+        var position = applyDirections(Position.center(), directions);
         return position.horizontal() * position.depth();
     }
 
-    static Position finalPosition(List<Direction> directions) {
-        var position = new Position(0, 0);
+    static int part2(String input) {
+        var directions = PARSER.parse(input);
+        var position = applyDirections(Trajectory.center(), directions);
+        return position.horizontal() * position.depth();
+    }
+
+    static <T extends Movable<T>> T applyDirections(T movable, List<Direction> directions) {
         for (var direction : directions) {
-            position = direction.move(position);
+            movable = direction.move(movable);
         }
-        return position;
+        return movable;
     }
 }
