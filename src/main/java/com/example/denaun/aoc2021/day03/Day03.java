@@ -14,4 +14,11 @@ class Day03 {
         var epsilonRate = ~mostCommon & ((1 << report.numBits()) - 1);
         return gammaRate * epsilonRate;
     }
+
+    static int part2(String input) {
+        var report = PARSER.parse(input);
+        var oxygenGeneratorRating = report.filterBits(DiagnosticReport::mostCommonValue);
+        var co2ScrubberRating = report.filterBits(DiagnosticReport::leastCommonValue);
+        return oxygenGeneratorRating * co2ScrubberRating;
+    }
 }

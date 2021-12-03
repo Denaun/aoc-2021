@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day03;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
@@ -40,8 +39,16 @@ public class Day03Test extends AocTestCase {
     }
 
     @Test
+    public void example2() {
+        assertThat(EXAMPLE_INPUT.filterBits(DiagnosticReport::mostCommonValue))
+                .isEqualTo(0b10111);
+        assertThat(EXAMPLE_INPUT.filterBits(DiagnosticReport::leastCommonValue))
+                .isEqualTo(0b01010);
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day03.part2(input)).isEqualTo(482500);
     }
 }
