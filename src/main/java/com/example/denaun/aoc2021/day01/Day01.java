@@ -1,6 +1,6 @@
 package com.example.denaun.aoc2021.day01;
 
-import com.example.denaun.aoc2021.AocParsers;
+import com.example.denaun.aoc2021.parsers.AocParsers;
 import com.google.common.collect.Streams;
 import java.util.List;
 import java.util.stream.IntStream;

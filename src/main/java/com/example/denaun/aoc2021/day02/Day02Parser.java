@@ -3,7 +3,7 @@ package com.example.denaun.aoc2021.day02;
 import static org.jparsec.Scanners.isChar;
 import static org.jparsec.Scanners.string;
 
-import com.example.denaun.aoc2021.AocParsers;
+import com.example.denaun.aoc2021.parsers.AocParsers;
 import java.util.List;
 import java.util.function.Function;
 import org.jparsec.Parser;
