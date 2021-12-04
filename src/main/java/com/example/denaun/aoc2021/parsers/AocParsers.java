@@ -11,6 +11,7 @@ public class AocParsers {
 
     public static final Parser<?> LINE_ENDING = isChar('\n');
     public static final Parser<?> SPACE = isChar(' ');
+    public static final Parser<?> COMMA = isChar(',');
 
     public static final Parser<Integer> NUMBER = Scanners.INTEGER.map(Integer::valueOf);
     public static final Parser<Integer> BINARY_NUMBER =
