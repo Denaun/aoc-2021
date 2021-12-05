@@ -16,6 +16,11 @@ class Day05 {
         return dangerousAreas(lines);
     }
 
+    static long part2(String input) {
+        var lines = PARSER.parse(input);
+        return dangerousAreas(lines);
+    }
+
     static long dangerousAreas(List<Line> lines) {
         return lines.stream()
                 .flatMap(Line::points)
