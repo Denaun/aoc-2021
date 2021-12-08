@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day07;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
@@ -18,7 +17,8 @@ public class Day07Test extends AocTestCase {
 
     @Test
     public void example1() {
-        assertThat(Day07.nearestPosition(EXAMPLE_INPUT)).isEqualTo(Map.entry(2, 37));
+        assertThat(Day07.nearestPosition(EXAMPLE_INPUT, Day07.SIMPLE_COST))
+                .isEqualTo(Map.entry(2, 37));
     }
 
     @Test
@@ -28,8 +28,14 @@ public class Day07Test extends AocTestCase {
     }
 
     @Test
+    public void example2() {
+        assertThat(Day07.nearestPosition(EXAMPLE_INPUT, Day07.INCREASING_COST))
+                .isEqualTo(Map.entry(5, 168));
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day07.part2(input)).isEqualTo(98_363_777);
     }
 }
