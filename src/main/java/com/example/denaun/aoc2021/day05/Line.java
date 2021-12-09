@@ -2,6 +2,7 @@ package com.example.denaun.aoc2021.day05;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import com.example.denaun.aoc2021.Coordinate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 

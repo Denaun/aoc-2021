@@ -6,6 +6,7 @@ import static com.example.denaun.aoc2021.parsers.AocParsers.NUMBER;
 import static com.example.denaun.aoc2021.parsers.AocParsers.sepPair;
 import static org.jparsec.Scanners.string;
 
+import com.example.denaun.aoc2021.Coordinate;
 import java.util.List;
 import org.jparsec.Parser;
 
