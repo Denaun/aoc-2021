@@ -1,10 +1,10 @@
 package com.example.denaun.aoc2021.day09;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import org.junit.Test;
 
@@ -40,8 +40,17 @@ public class Day09Test extends AocTestCase {
     }
 
     @Test
+    public void example2() {
+        assertThat(Day09.lowPoints(EXAMPLE_INPUT)
+                .map(EXAMPLE_INPUT::expandBasin)
+                .mapToInt(Collection::size)
+                .toArray())
+                        .asList().containsExactly(3, 9, 14, 9);
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day09.part2(input)).isEqualTo(950_600);
     }
 }
