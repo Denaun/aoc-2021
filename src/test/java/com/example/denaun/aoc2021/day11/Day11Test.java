@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day11;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import com.example.denaun.aoc2021.Coordinate;
@@ -16,7 +15,7 @@ public class Day11Test extends AocTestCase {
         super("day11.in");
     }
 
-    private static final EnergyMap EXAMPLE_INPUT = new EnergyMap(Matrix.of(
+    private static final Matrix EXAMPLE_INPUT = Matrix.of(
             List.of(5, 4, 8, 3, 1, 4, 3, 2, 2, 3),
             List.of(2, 7, 4, 5, 8, 5, 4, 7, 1, 1),
             List.of(5, 2, 6, 4, 5, 5, 6, 1, 7, 3),
@@ -26,7 +25,7 @@ public class Day11Test extends AocTestCase {
             List.of(2, 1, 7, 6, 8, 4, 1, 7, 2, 1),
             List.of(6, 8, 8, 2, 8, 8, 1, 1, 3, 4),
             List.of(4, 8, 4, 6, 8, 4, 8, 5, 5, 4),
-            List.of(5, 2, 8, 3, 7, 5, 1, 5, 2, 6)));
+            List.of(5, 2, 8, 3, 7, 5, 1, 5, 2, 6));
 
     @Test
     public void example1() {
@@ -51,7 +50,7 @@ public class Day11Test extends AocTestCase {
 
     @Test
     public void example2() {
-        var map = new EnergyMap(EXAMPLE_INPUT.data());
+        var map = new EnergyMap(Matrix.copyOf(EXAMPLE_INPUT));
         assertThat(IntStream.range(0, 10)
                 .map(i -> map.step().size())
                 .sum())
@@ -69,8 +68,18 @@ public class Day11Test extends AocTestCase {
     }
 
     @Test
+    public void example3() {
+        var map = new EnergyMap(Matrix.copyOf(EXAMPLE_INPUT));
+        assertThat(IntStream.iterate(1, i -> i + 1)
+                .filter(i -> map.step().size() == map.size())
+                .findFirst()
+                .orElseThrow())
+                        .isEqualTo(195);
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day11.part2(input)).isEqualTo(346);
     }
 }

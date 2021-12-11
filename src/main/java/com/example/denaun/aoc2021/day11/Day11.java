@@ -17,4 +17,12 @@ class Day11 {
                 .map(i -> map.step().size())
                 .sum();
     }
+
+    static int part2(String input) {
+        var map = PARSER.parse(input);
+        return IntStream.iterate(1, i -> i + 1)
+                .filter(i -> map.step().size() == map.size())
+                .findFirst()
+                .orElseThrow();
+    }
 }

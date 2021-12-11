@@ -22,6 +22,10 @@ public final record Matrix(List<List<Integer>> data) {
         return new Matrix(List.of(rows));
     }
 
+    public static Matrix copyOf(Matrix other) {
+        return new Matrix(other.data());
+    }
+
     public int rows() {
         return data.size();
     }

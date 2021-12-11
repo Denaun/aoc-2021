@@ -14,6 +14,14 @@ import java.util.stream.IntStream;
 record EnergyMap(Matrix data) {
     static final int MAX_ENERGY = 9;
 
+    static EnergyMap copyOf(EnergyMap other) {
+        return new EnergyMap(Matrix.copyOf(other.data()));
+    }
+
+    int size() {
+        return data.rows() * data.columns();
+    }
+
     Set<Coordinate> step() {
         incrementAll();
         var toFlash = findOctopusesToFlash();
