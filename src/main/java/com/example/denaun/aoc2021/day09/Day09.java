@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day09;
 
-import static com.example.denaun.aoc2021.parsers.AocParsers.DIGIT;
-import static com.example.denaun.aoc2021.parsers.AocParsers.LINE_ENDING;
+import static com.example.denaun.aoc2021.parsers.AocParsers.LEVEL_MAP;
 
 import com.example.denaun.aoc2021.Coordinate;
 import java.util.Collection;
@@ -13,8 +12,7 @@ import org.jparsec.Parser;
 class Day09 {
     private Day09() {}
 
-    private static final Parser<HeightMap> PARSER =
-            DIGIT.many1().endBy1(LINE_ENDING).map(HeightMap::new);
+    private static final Parser<HeightMap> PARSER = LEVEL_MAP.map(HeightMap::new);
 
     static int part1(String input) {
         var map = PARSER.parse(input);

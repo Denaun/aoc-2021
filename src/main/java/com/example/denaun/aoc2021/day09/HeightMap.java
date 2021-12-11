@@ -1,45 +1,27 @@
 package com.example.denaun.aoc2021.day09;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 import com.example.denaun.aoc2021.Coordinate;
+import com.example.denaun.aoc2021.Matrix;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
-record HeightMap(List<List<Integer>> data) {
+record HeightMap(Matrix data) {
     static final int MAX_HEIGHT = 9;
 
-    HeightMap {
-        checkArgument(!data.isEmpty());
-        var numColumns = data.get(0).size();
-        checkArgument(data.stream().skip(1)
-                .allMatch(column -> column.size() == numColumns));
-    }
-
     int rows() {
-        return data.size();
+        return data.rows();
     }
 
     int columns() {
-        return data.get(0).size();
+        return data.columns();
     }
 
     int get(int x, int y) {
-        if (y < 0) {
+        if (!data.isInside(x, y)) {
             return Integer.MAX_VALUE;
         }
-        if (y >= rows()) {
-            return Integer.MAX_VALUE;
-        }
-        if (x < 0) {
-            return Integer.MAX_VALUE;
-        }
-        if (x >= columns()) {
-            return Integer.MAX_VALUE;
-        }
-        return data.get(y).get(x);
+        return data.get(x, y);
     }
 
     int get(Coordinate c) {

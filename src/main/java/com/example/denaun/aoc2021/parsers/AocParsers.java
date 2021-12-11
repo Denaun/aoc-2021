@@ -2,6 +2,7 @@ package com.example.denaun.aoc2021.parsers;
 
 import static org.jparsec.Scanners.isChar;
 
+import com.example.denaun.aoc2021.Matrix;
 import java.util.List;
 import java.util.function.BiFunction;
 import org.jparsec.Parser;
@@ -21,6 +22,8 @@ public class AocParsers {
     public static final Parser<Integer> DIGIT = AocScanners.DIGIT.map(Integer::valueOf);
 
     public static final Parser<List<Integer>> NUMBER_LIST = NUMBER.endBy1(LINE_ENDING);
+    public static final Parser<Matrix> LEVEL_MAP =
+            DIGIT.many1().endBy1(LINE_ENDING).map(Matrix::new);
 
     public static final <A, T> Parser<T> sepPair(
             Parser<?> sep, Parser<A> atom,

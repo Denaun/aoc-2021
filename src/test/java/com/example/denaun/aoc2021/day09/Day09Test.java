@@ -3,6 +3,7 @@ package com.example.denaun.aoc2021.day09;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.example.denaun.aoc2021.AocTestCase;
+import com.example.denaun.aoc2021.Matrix;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Day09Test extends AocTestCase {
         super("day09.in");
     }
 
-    private static final HeightMap EXAMPLE_INPUT = new HeightMap(List.of(
+    private static final HeightMap EXAMPLE_INPUT = new HeightMap(Matrix.of(
             List.of(2, 1, 9, 9, 9, 4, 3, 2, 1, 0),
             List.of(3, 9, 8, 7, 8, 9, 4, 9, 2, 1),
             List.of(9, 8, 5, 6, 7, 8, 9, 8, 9, 2),
