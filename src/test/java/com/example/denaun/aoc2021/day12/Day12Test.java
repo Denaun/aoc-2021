@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day12;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import com.google.common.graph.GraphBuilder;
@@ -24,7 +23,10 @@ public class Day12Test extends AocTestCase {
         graph.putEdge(Node.of("b"), Node.of("d"));
         graph.putEdge(Node.of("A"), Node.of("end"));
         graph.putEdge(Node.of("b"), Node.of("end"));
-        assertThat(Day12.countPaths(graph)).isEqualTo(10);
+        assertThat(Day12.countPaths(new Day12.VisitSmallCavesOnce(graph)))
+                .isEqualTo(10);
+        assertThat(Day12.countPaths(new Day12.VisitOneSmallCaveTwice(graph)))
+                .isEqualTo(36);
     }
 
     @Test
@@ -40,7 +42,10 @@ public class Day12Test extends AocTestCase {
         graph.putEdge(Node.of("kj"), Node.of("sa"));
         graph.putEdge(Node.of("kj"), Node.of("HN"));
         graph.putEdge(Node.of("kj"), Node.of("dc"));
-        assertThat(Day12.countPaths(graph)).isEqualTo(19);
+        assertThat(Day12.countPaths(new Day12.VisitSmallCavesOnce(graph)))
+                .isEqualTo(19);
+        assertThat(Day12.countPaths(new Day12.VisitOneSmallCaveTwice(graph)))
+                .isEqualTo(103);
     }
 
     @Test
@@ -64,7 +69,10 @@ public class Day12Test extends AocTestCase {
         graph.putEdge(Node.of("zg"), Node.of("he"));
         graph.putEdge(Node.of("pj"), Node.of("fs"));
         graph.putEdge(Node.of("start"), Node.of("RW"));
-        assertThat(Day12.countPaths(graph)).isEqualTo(226);
+        assertThat(Day12.countPaths(new Day12.VisitSmallCavesOnce(graph)))
+                .isEqualTo(226);
+        assertThat(Day12.countPaths(new Day12.VisitOneSmallCaveTwice(graph)))
+                .isEqualTo(3509);
     }
 
     @Test
@@ -76,6 +84,6 @@ public class Day12Test extends AocTestCase {
     @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day12.part2(input)).isEqualTo(104_834);
     }
 }
