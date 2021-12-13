@@ -7,7 +7,7 @@ import java.util.Set;
 import org.junit.Test;
 
 public class FoldTest {
-    static final Set<Coordinate> EXAMPLE_INPUT = Set.of(
+    public static final Set<Coordinate> EXAMPLE_INPUT = Set.of(
             new Coordinate(6, 10),
             new Coordinate(0, 14),
             new Coordinate(9, 10),

@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day13;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
@@ -19,8 +18,28 @@ public class Day13Test extends AocTestCase {
     }
 
     @Test
+    public void example2() {
+        var dots = new Fold.Horizontal(7).apply(FoldTest.EXAMPLE_INPUT);
+        dots = new Fold.Vertical(5).apply(dots);
+        assertThat(Day13.render(dots)).isEqualTo("""
+                #####
+                #...#
+                #...#
+                #...#
+                #####
+                """);
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day13.part2(input)).isEqualTo("""
+                #....###..####...##.###....##.####.#..#
+                #....#..#.#.......#.#..#....#.#....#..#
+                #....#..#.###.....#.###.....#.###..####
+                #....###..#.......#.#..#....#.#....#..#
+                #....#.#..#....#..#.#..#.#..#.#....#..#
+                ####.#..#.#.....##..###...##..####.#..#
+                """);
     }
 }
