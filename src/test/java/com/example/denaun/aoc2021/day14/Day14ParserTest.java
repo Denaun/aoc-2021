@@ -31,26 +31,38 @@ public class Day14ParserTest {
                 """))
                 .isEqualTo(new PolymerizationInstructions(
                         List.of(Element.of("N"), Element.of("N"), Element.of("C"), Element.of("B")),
-                        Map.of(
-                                Element.of("B"), Map.of(
-                                        Element.of("B"), Element.of("N"),
-                                        Element.of("C"), Element.of("B"),
-                                        Element.of("H"), Element.of("H"),
-                                        Element.of("N"), Element.of("B")),
-                                Element.of("C"), Map.of(
-                                        Element.of("B"), Element.of("H"),
-                                        Element.of("C"), Element.of("N"),
-                                        Element.of("H"), Element.of("B"),
-                                        Element.of("N"), Element.of("C")),
-                                Element.of("H"), Map.of(
-                                        Element.of("B"), Element.of("C"),
-                                        Element.of("C"), Element.of("B"),
-                                        Element.of("H"), Element.of("N"),
-                                        Element.of("N"), Element.of("C")),
-                                Element.of("N"), Map.of(
-                                        Element.of("B"), Element.of("B"),
-                                        Element.of("C"), Element.of("B"),
-                                        Element.of("H"), Element.of("C"),
-                                        Element.of("N"), Element.of("C")))));
+                        Map.ofEntries(
+                                Map.entry(Map.entry(Element.of("C"), Element.of("H")),
+                                        Element.of("B")),
+                                Map.entry(Map.entry(Element.of("H"), Element.of("H")),
+                                        Element.of("N")),
+                                Map.entry(Map.entry(Element.of("C"), Element.of("B")),
+                                        Element.of("H")),
+                                Map.entry(Map.entry(Element.of("N"), Element.of("H")),
+                                        Element.of("C")),
+                                Map.entry(Map.entry(Element.of("H"), Element.of("B")),
+                                        Element.of("C")),
+                                Map.entry(Map.entry(Element.of("H"), Element.of("C")),
+                                        Element.of("B")),
+                                Map.entry(Map.entry(Element.of("H"), Element.of("N")),
+                                        Element.of("C")),
+                                Map.entry(Map.entry(Element.of("N"), Element.of("N")),
+                                        Element.of("C")),
+                                Map.entry(Map.entry(Element.of("B"), Element.of("H")),
+                                        Element.of("H")),
+                                Map.entry(Map.entry(Element.of("N"), Element.of("C")),
+                                        Element.of("B")),
+                                Map.entry(Map.entry(Element.of("B"), Element.of("N")),
+                                        Element.of("B")),
+                                Map.entry(Map.entry(Element.of("N"), Element.of("B")),
+                                        Element.of("B")),
+                                Map.entry(Map.entry(Element.of("B"), Element.of("B")),
+                                        Element.of("N")),
+                                Map.entry(Map.entry(Element.of("B"), Element.of("C")),
+                                        Element.of("B")),
+                                Map.entry(Map.entry(Element.of("C"), Element.of("C")),
+                                        Element.of("N")),
+                                Map.entry(Map.entry(Element.of("C"), Element.of("N")),
+                                        Element.of("C")))));
     }
 }
