@@ -1,6 +1,7 @@
 package com.example.denaun.aoc2021.day03;
 
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Verify.verify;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -43,7 +44,7 @@ record DiagnosticReport(int numBits, List<Integer> numbers) {
             var mask = (1 << bit);
             candidates.removeIf(number -> ((number & mask) != 0) != keepIfSet);
         }
-        checkState(candidates.size() == 1);
+        verify(candidates.size() == 1);
         return candidates.iterator().next();
     }
 }

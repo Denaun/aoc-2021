@@ -1,6 +1,7 @@
 package com.example.denaun.aoc2021.day10;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Verify.verify;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.math.Quantiles;
@@ -54,7 +55,7 @@ class Day10 {
             if (token.function() == TokenFunction.OPEN) {
                 nesting.push(token.type());
             } else {
-                assert token.function() == TokenFunction.CLOSE;
+                verify(token.function() == TokenFunction.CLOSE);
                 var expected = nesting.pop();
                 if (expected != token.type()) {
                     return new Corrupted(token.type());

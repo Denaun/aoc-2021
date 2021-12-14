@@ -12,7 +12,7 @@ enum Signal {
             case 'e' -> Signal.E;
             case 'f' -> Signal.F;
             case 'g' -> Signal.G;
-            default -> throw new IllegalStateException(
+            default -> throw new IllegalArgumentException(
                     "Unexpected char: %c".formatted(c));
         };
     }
