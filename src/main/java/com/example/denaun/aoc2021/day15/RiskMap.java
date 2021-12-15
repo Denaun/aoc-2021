@@ -7,14 +7,36 @@ import com.example.denaun.aoc2021.Matrix;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
+import java.util.stream.IntStream;
 
 record RiskMap(Matrix data) {
+    static final int MIN_RISK = 1;
+    static final int MAX_RISK = 9;
+
     int rows() {
         return data.rows();
     }
 
     int columns() {
         return data.columns();
+    }
+
+    RiskMap repeatedIncreasing(int times) {
+        return new RiskMap(new Matrix(
+                IntStream.range(0, times)
+                        .boxed()
+                        .flatMap(i -> data.data().stream()
+                                .map(row -> IntStream.range(0, times)
+                                        .boxed()
+                                        .flatMap(j -> {
+                                            var off = i + j;
+                                            return row.stream()
+                                                    .map(v -> MIN_RISK
+                                                            + (v - MIN_RISK + off) % MAX_RISK);
+                                        })
+                                        .toList()))
+                        .toList()));
+
     }
 
     int lowestTotalRisk(Coordinate start, Coordinate end) {

@@ -16,4 +16,11 @@ class Day15 {
         var end = new Coordinate(map.rows() - 1, map.columns() - 1);
         return map.lowestTotalRisk(start, end);
     }
+
+    static int part2(String input) {
+        var map = PARSER.parse(input).repeatedIncreasing(5);
+        var start = new Coordinate(0, 0);
+        var end = new Coordinate(map.rows() - 1, map.columns() - 1);
+        return map.lowestTotalRisk(start, end);
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day15;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import com.example.denaun.aoc2021.Coordinate;
@@ -42,8 +41,31 @@ public class Day15Test extends AocTestCase {
     }
 
     @Test
+    public void example2() {
+        assertThat(new RiskMap(Matrix.of(List.of(8)))
+                .repeatedIncreasing(5)
+                .data().data())
+                        .containsExactly(
+                                List.of(8, 9, 1, 2, 3),
+                                List.of(9, 1, 2, 3, 4),
+                                List.of(1, 2, 3, 4, 5),
+                                List.of(2, 3, 4, 5, 6),
+                                List.of(3, 4, 5, 6, 7))
+                        .inOrder();
+    }
+
+    @Test
+    public void example3() {
+        var map = EXAMPLE_INPUT.repeatedIncreasing(5);
+        var start = new Coordinate(0, 0);
+        var end = new Coordinate(map.rows() - 1, map.columns() - 1);
+        assertThat(map.lowestTotalRisk(start, end))
+                .isEqualTo(315);
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day15.part2(input)).isEqualTo(3016);
     }
 }
