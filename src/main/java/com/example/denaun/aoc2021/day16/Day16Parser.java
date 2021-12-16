@@ -41,12 +41,12 @@ class Day16Parser {
     private static final Parser<Integer> VERSION = bits(3, "version");
 
     private static final Parser<Integer> LITERAL_GROUP = bits(4, "literal group");
-    private static final Parser<Integer> LITERAL_VALUE = Parsers.sequence(
+    private static final Parser<Long> LITERAL_VALUE = Parsers.sequence(
             isChar('1').next(LITERAL_GROUP).many(),
             isChar('0').next(LITERAL_GROUP),
             (groups, last) -> Streams
                     .concat(groups.stream(), Stream.of(last))
-                    .mapToInt(i -> i)
+                    .mapToLong(i -> i)
                     .reduce((a, b) -> a << 4 | b)
                     .orElseThrow());
     private static final Parser<Literal> LITERAL = Parsers.sequence(
@@ -54,7 +54,8 @@ class Day16Parser {
             LITERAL_VALUE,
             Literal::new);
 
-    private static final Parser<Integer> OPERATOR = bits(3, "operator");
+    private static final Parser<OperatorType> OPERATOR = bits(3, "operator")
+            .map(op -> OperatorType.valueOf(op).orElseThrow());
     private static final Parser<Integer> TOTAL_LENGTH = bits(15, "total length");
     private static final Parser<Integer> NUM_SUB_PACKETS = bits(11, "number of sub-packets");
 
@@ -86,7 +87,6 @@ class Day16Parser {
         return parser;
     }
 
-    static final Parser<List<Packet>> INPUT = BITS.followedBy(LINE_ENDING)
-            .map(packet().many1()
-                    .followedBy(isChar('0').many())::parse);
+    static final Parser<Packet> INPUT = BITS.followedBy(LINE_ENDING)
+            .map(packet().followedBy(isChar('0').many())::parse);
 }

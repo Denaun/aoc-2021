@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day16;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import com.google.common.truth.Correspondence;
@@ -18,26 +17,14 @@ public class Day16Test extends AocTestCase {
         assertThat(Day16.flatten(Day16Parser.INPUT.parse("8A004A801A8002F478\n")).toList())
                 .comparingElementsUsing(Correspondence.transforming(Packet::version, "version"))
                 .containsExactly(4, 1, 5, 6);
-    }
-
-    @Test
-    public void example5() {
         assertThat(Day16.flatten(Day16Parser.INPUT.parse("620080001611562C8802118E34\n"))
                 .mapToInt(Packet::version)
                 .sum())
                         .isEqualTo(12);
-    }
-
-    @Test
-    public void example6() {
         assertThat(Day16.flatten(Day16Parser.INPUT.parse("C0015000016115A2E0802F182340\n"))
                 .mapToInt(Packet::version)
                 .sum())
                         .isEqualTo(23);
-    }
-
-    @Test
-    public void example7() {
         assertThat(Day16.flatten(Day16Parser.INPUT.parse("A0016C880162017C3686B18A3D4780\n"))
                 .mapToInt(Packet::version)
                 .sum())
@@ -53,6 +40,6 @@ public class Day16Test extends AocTestCase {
     @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day16.part2(input)).isEqualTo(1_495_959_086_337L);
     }
 }

@@ -1,17 +1,7 @@
 package com.example.denaun.aoc2021.day16;
 
-import java.util.List;
-
-sealed interface Packet {
+sealed interface Packet permits Literal,Operator {
     int version();
-}
 
-
-record Literal(int version, int value) implements Packet {
-}
-
-
-record Operator(
-        int version, int operator,
-        List<Packet> subPackets) implements Packet {
+    long value();
 }
