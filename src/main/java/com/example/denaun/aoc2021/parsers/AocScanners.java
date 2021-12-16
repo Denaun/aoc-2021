@@ -9,6 +9,8 @@ public class AocScanners {
 
     public static final Parser<String> BINARY = Patterns.many1(AocPredicates.IS_BINARY)
             .toScanner("binary").source();
+    public static final Parser<String> HEXADECIMAL = Patterns.many1(CharPredicates.IS_HEX_DIGIT)
+            .toScanner("hexadecimal").source();
     public static final Parser<String> DIGIT = Patterns.isChar(CharPredicates.IS_DIGIT)
             .toScanner("digit").source();
 
