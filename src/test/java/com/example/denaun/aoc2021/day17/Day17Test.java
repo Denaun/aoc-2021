@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day17;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import com.example.denaun.aoc2021.Coordinate;
@@ -19,7 +18,7 @@ public class Day17Test extends AocTestCase {
 
     @Test
     public void example1() {
-        assertThat(Day17.backtrackHeight(EXAMPLE_INPUT.bottomRight().y()))
+        assertThat(Day17.backtrackHeight(EXAMPLE_INPUT.bottom()))
                 .isEqualTo(45);
     }
 
@@ -30,8 +29,14 @@ public class Day17Test extends AocTestCase {
     }
 
     @Test
+    public void example2() {
+        assertThat(Day17.countVelocities(EXAMPLE_INPUT))
+                .isEqualTo(112);
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day17.part2(input)).isEqualTo(2576);
     }
 }
