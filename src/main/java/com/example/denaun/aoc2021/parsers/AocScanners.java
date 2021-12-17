@@ -7,6 +7,10 @@ import org.jparsec.pattern.Patterns;
 public class AocScanners {
     private AocScanners() {}
 
+    static final Parser<String> SIGNED_INTEGER =
+            Patterns.sequence(Patterns.among("+-").optional(), Patterns.INTEGER)
+                    .toScanner("signed integer").source();
+
     public static final Parser<String> BINARY = Patterns.many1(AocPredicates.IS_BINARY)
             .toScanner("binary").source();
     public static final Parser<String> HEXADECIMAL = Patterns.many1(CharPredicates.IS_HEX_DIGIT)

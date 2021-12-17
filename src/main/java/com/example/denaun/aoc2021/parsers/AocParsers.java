@@ -21,6 +21,7 @@ public class AocParsers {
     public static final Parser<Integer> BINARY_NUMBER =
             AocScanners.BINARY.map(s -> Integer.valueOf(s, 2));
     public static final Parser<Integer> DIGIT = AocScanners.DIGIT.map(Integer::valueOf);
+    public static final Parser<Integer> SIGNED = AocScanners.SIGNED_INTEGER.map(Integer::valueOf);
 
     public static final Parser<List<Integer>> NUMBER_LIST = NUMBER.endBy1(LINE_ENDING);
     public static final Parser<Matrix> LEVEL_MAP =
