@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day18;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
@@ -79,8 +78,25 @@ public class Day18Test extends AocTestCase {
     }
 
     @Test
+    public void example8() {
+        assertThat(Day18.largestSum(List.of(
+                Number.valueOf("[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]"),
+                Number.valueOf("[[[5,[2,8]],4],[5,[[9,9],0]]]"),
+                Number.valueOf("[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]"),
+                Number.valueOf("[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]"),
+                Number.valueOf("[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]"),
+                Number.valueOf("[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]"),
+                Number.valueOf("[[[[5,4],[7,7]],8],[[8,3],8]]"),
+                Number.valueOf("[[9,3],[[9,9],[6,[4,9]]]]"),
+                Number.valueOf("[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]"),
+                Number.valueOf("[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]")))
+                .magnitude())
+                        .isEqualTo(3993);
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day18.part2(input)).isEqualTo(4735);
     }
 }
