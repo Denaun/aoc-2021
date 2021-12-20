@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.stream.IntStream;
 
-record RiskMap(Matrix data) {
+record RiskMap(Matrix<Integer> data) {
     static final int MIN_RISK = 1;
     static final int MAX_RISK = 9;
 
@@ -22,7 +22,7 @@ record RiskMap(Matrix data) {
     }
 
     RiskMap repeatedIncreasing(int times) {
-        return new RiskMap(new Matrix(
+        return new RiskMap(new Matrix<>(
                 IntStream.range(0, times)
                         .boxed()
                         .flatMap(i -> data.data().stream()

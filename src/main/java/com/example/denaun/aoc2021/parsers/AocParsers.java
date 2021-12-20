@@ -24,8 +24,8 @@ public class AocParsers {
     public static final Parser<Integer> SIGNED = AocScanners.SIGNED_INTEGER.map(Integer::valueOf);
 
     public static final Parser<List<Integer>> NUMBER_LIST = NUMBER.endBy1(LINE_ENDING);
-    public static final Parser<Matrix> LEVEL_MAP =
-            DIGIT.many1().endBy1(LINE_ENDING).map(Matrix::new);
+    public static final Parser<Matrix<Integer>> LEVEL_MAP =
+            DIGIT.many1().endBy1(LINE_ENDING).map(Matrix<Integer>::new);
 
     public static final Parser<Coordinate> COORDINATE = sepPair(COMMA, NUMBER, Coordinate::new);
 

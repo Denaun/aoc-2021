@@ -6,24 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-public final record Matrix(List<List<Integer>> data) {
+public final record Matrix<T> (List<List<T>> data) {
     public Matrix {
         checkArgument(!data.isEmpty());
         var numColumns = data.get(0).size();
         checkArgument(data.stream().skip(1)
                 .allMatch(column -> column.size() == numColumns));
         data = data.stream()
-                .map(row -> (List<Integer>) new ArrayList<>(row))
+                .map(row -> (List<T>) new ArrayList<>(row))
                 .toList();
     }
 
     @SafeVarargs
-    public static Matrix of(List<Integer>... rows) {
-        return new Matrix(List.of(rows));
+    public static <T> Matrix<T> of(List<T>... rows) {
+        return new Matrix<>(List.of(rows));
     }
 
-    public static Matrix copyOf(Matrix other) {
-        return new Matrix(other.data());
+    public static <T> Matrix<T> copyOf(Matrix<T> other) {
+        return new Matrix<>(other.data());
     }
 
     public int rows() {
@@ -45,23 +45,23 @@ public final record Matrix(List<List<Integer>> data) {
                 && x < columns();
     }
 
-    public int get(Coordinate c) {
+    public T get(Coordinate c) {
         return get(c.x(), c.y());
     }
 
-    public int get(int x, int y) {
+    public T get(int x, int y) {
         return data.get(y).get(x);
     }
 
-    public int set(Coordinate c, int v) {
+    public T set(Coordinate c, T v) {
         return set(c.x(), c.y(), v);
     }
 
-    public int set(int x, int y, int v) {
+    public T set(int x, int y, T v) {
         return data.get(y).set(x, v);
     }
 
-    public void replaceAll(UnaryOperator<Integer> operator) {
+    public void replaceAll(UnaryOperator<T> operator) {
         for (var row : data) {
             row.replaceAll(operator);
         }

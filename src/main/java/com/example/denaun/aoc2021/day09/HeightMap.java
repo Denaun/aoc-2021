@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-record HeightMap(Matrix data) {
+record HeightMap(Matrix<Integer> data) {
     static final int MAX_HEIGHT = 9;
 
     int rows() {

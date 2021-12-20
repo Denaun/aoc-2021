@@ -15,7 +15,7 @@ public class Day11Test extends AocTestCase {
         super("day11.in");
     }
 
-    private static final Matrix EXAMPLE_INPUT = Matrix.of(
+    private static final Matrix<Integer> EXAMPLE_INPUT = Matrix.of(
             List.of(5, 4, 8, 3, 1, 4, 3, 2, 2, 3),
             List.of(2, 7, 4, 5, 8, 5, 4, 7, 1, 1),
             List.of(5, 2, 6, 4, 5, 5, 6, 1, 7, 3),
