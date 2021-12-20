@@ -1,10 +1,10 @@
 package com.example.denaun.aoc2021.day20;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
+import java.util.stream.Stream;
 import org.junit.Test;
 
 public class Day20Test extends AocTestCase {
@@ -39,6 +39,12 @@ public class Day20Test extends AocTestCase {
                 ...##.##.
                 ....###..""");
         assertThat(image.countLit()).isEqualTo(35);
+        image = Stream.iterate(
+                EXAMPLE_INPUT.image(),
+                img -> img.enhance(EXAMPLE_INPUT.algorithm()))
+                .skip(50)
+                .findFirst().orElseThrow();
+        assertThat(image.countLit()).isEqualTo(3351);
     }
 
     @Test
@@ -50,6 +56,6 @@ public class Day20Test extends AocTestCase {
     @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day20.part2(input)).isEqualTo(16_605);
     }
 }
