@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
 
 public final record Matrix<T> (List<List<T>> data) {
     public Matrix {
@@ -65,5 +66,9 @@ public final record Matrix<T> (List<List<T>> data) {
         for (var row : data) {
             row.replaceAll(operator);
         }
+    }
+
+    public Stream<T> stream() {
+        return data.stream().flatMap(List::stream);
     }
 }
