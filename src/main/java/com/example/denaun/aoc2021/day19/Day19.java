@@ -67,25 +67,25 @@ class Day19 {
         throw new IllegalStateException();
     }
 
-    // TODO: This should be smaller (24 elements).
     private static final List<UnaryOperator<Coordinate3d>> ROTATIONS = Stream
+            // Facing X, Y, or Z.
             .<UnaryOperator<Coordinate3d>>of(
                     c -> c,
-                    c -> new Coordinate3d(c.x(), c.y(), -c.z()),
-                    c -> new Coordinate3d(c.x(), -c.y(), c.z()),
-                    c -> new Coordinate3d(c.x(), -c.y(), -c.z()),
-                    c -> new Coordinate3d(-c.x(), c.y(), c.z()),
-                    c -> new Coordinate3d(-c.x(), c.y(), -c.z()),
-                    c -> new Coordinate3d(-c.x(), -c.y(), c.z()),
-                    c -> new Coordinate3d(-c.x(), -c.y(), -c.z()))
+                    c -> new Coordinate3d(c.y(), c.z(), c.x()),
+                    c -> new Coordinate3d(c.z(), c.x(), c.y()))
             .flatMap(op -> Stream
+                    // Facing positive or negative.
                     .<UnaryOperator<Coordinate3d>>of(
                             c -> c,
-                            c -> new Coordinate3d(c.x(), c.z(), c.y()),
-                            c -> new Coordinate3d(c.y(), c.x(), c.z()),
-                            c -> new Coordinate3d(c.y(), c.z(), c.x()),
-                            c -> new Coordinate3d(c.z(), c.x(), c.y()),
-                            c -> new Coordinate3d(c.z(), c.y(), c.x()))
+                            c -> new Coordinate3d(-c.x(), c.y(), -c.z()))
+                    .map(op::andThen))
+            .flatMap(op -> Stream
+                    // Considering any other direction as UP.
+                    .<UnaryOperator<Coordinate3d>>of(
+                            c -> c,
+                            c -> new Coordinate3d(c.x(), c.z(), -c.y()),
+                            c -> new Coordinate3d(c.x(), -c.y(), -c.z()),
+                            c -> new Coordinate3d(c.x(), -c.z(), c.y()))
                     .map(op::andThen))
             .<UnaryOperator<Coordinate3d>>map(f -> f::apply)
             .toList();
