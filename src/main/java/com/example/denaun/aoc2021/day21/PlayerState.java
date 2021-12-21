@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 record PlayerState(int position, int score) {
 
-    private static final int TARGET_SCORE = 1000;
     private static final int BOARD_SIZE = 10;
 
     static PlayerState startingAt(int position) {
@@ -15,8 +14,8 @@ record PlayerState(int position, int score) {
         checkArgument(position >= 1 && position <= BOARD_SIZE);
     }
 
-    boolean hasWon() {
-        return score >= TARGET_SCORE;
+    boolean hasWon(int targetScore) {
+        return score >= targetScore;
     }
 
     PlayerState advanced(int steps) {

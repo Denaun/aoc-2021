@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day21;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
@@ -17,17 +16,17 @@ public class Day21Test extends AocTestCase {
 
     @Test
     public void example1() {
-        var dice = new DeterministicDice();
-        var state = EXAMPLE_INPUT.next(dice);
+        var dice = new MultipleDie(new DeterministicDice(), Day21.ROLLS_PER_TURN);
+        var state = EXAMPLE_INPUT.next(dice.getAsInt());
         assertThat(state.player1()).isEqualTo(new PlayerState(10, 10));
-        state = state.next(dice);
+        state = state.next(dice.getAsInt());
         assertThat(state.player2()).isEqualTo(new PlayerState(3, 3));
-        state = state.next(dice);
+        state = state.next(dice.getAsInt());
         assertThat(state.player1()).isEqualTo(new PlayerState(4, 14));
-        state = Day21.playOut(state, dice);
-        assertThat(state.rolls()).isEqualTo(993);
-        assertThat(state.loser()).isEqualTo(Optional.of(state.player2()));
-        assertThat(state.loser().get().score()).isEqualTo(745);
+        state = Day21.playOut(state, dice, Day21.PART1_SCORE);
+        assertThat(state.turns() * Day21.ROLLS_PER_TURN).isEqualTo(993);
+        assertThat(state.loser(Day21.PART1_SCORE)).isEqualTo(Optional.of(state.player2()));
+        assertThat(state.loser(Day21.PART1_SCORE).get().score()).isEqualTo(745);
     }
 
     @Test
@@ -37,8 +36,14 @@ public class Day21Test extends AocTestCase {
     }
 
     @Test
+    public void example2() {
+        assertThat(Day21.countWins(EXAMPLE_INPUT, Day21.PART2_SCORE))
+                .isEqualTo(new Wins(444_356_092_776_315L, 341_960_390_180_808L));
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day21.part2(input)).isEqualTo(110_271_560_863_819L);
     }
 }
