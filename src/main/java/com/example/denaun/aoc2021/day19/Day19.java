@@ -1,13 +1,15 @@
 package com.example.denaun.aoc2021.day19;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.UnaryOperator;
@@ -35,36 +37,38 @@ class Day19 {
 
     static Measurement matchBeacons(List<Set<Coordinate3d>> scanners) {
         checkArgument(!scanners.isEmpty());
-        var unmatched = scanners.stream()
-                .map(scanner -> new Measurement(List.of(Coordinate3d.origin()), scanner))
+        List<Measurement> unmatched = scanners.stream()
+                .sorted(comparingInt(Set<Coordinate3d>::size).reversed())
+                .map(beacons -> new Measurement(List.of(Coordinate3d.origin()), beacons))
                 .collect(toCollection(LinkedList::new));
-        while (!unmatched.isEmpty()) {
-            var first = unmatched.removeFirst();
-            if (unmatched.isEmpty()) {
-                return first;
-            }
-            var merged = Optional.<Measurement>empty();
-            for (var second : unmatched) {
-                var matched = tryMatch(first, second);
-                if (matched.isPresent()) {
-                    var arranged = matched.get().apply(second);
-                    first = new Measurement(
-                            ImmutableList.<Coordinate3d>builder()
-                                    .addAll(first.scanners())
-                                    .addAll(arranged.scanners())
-                                    .build(),
-                            ImmutableSet.<Coordinate3d>builder()
-                                    .addAll(first.beacons())
-                                    .addAll(arranged.beacons())
-                                    .build());
-                    merged = Optional.of(second);
-                    break;
-                }
-            }
-            unmatched.addLast(first);
-            merged.ifPresent(unmatched::remove);
+        var reference = unmatched.remove(0);
+        // Assuming that the largest group can always be expanded, we need up to N repetitions to
+        // merge everything.
+        for (var i = 0; i < scanners.size(); ++i) {
+            final var referenceBeacons = reference.beacons();
+            Map<Optional<Measurement>, List<Measurement>> partitioned = unmatched.stream()
+                    .collect(groupingBy(
+                            other -> tryMatch(referenceBeacons, other.beacons())
+                                    .map(arrangement -> arrangement.apply(other))));
+            unmatched = Optional
+                    .ofNullable(partitioned.remove(Optional.empty()))
+                    .orElse(List.of());
+            var matched = partitioned.keySet().stream()
+                    .map(Optional::get)
+                    .toList();
+
+            reference = new Measurement(
+                    Stream.concat(Stream.of(reference), matched.stream())
+                            .map(Measurement::scanners)
+                            .flatMap(List::stream)
+                            .toList(),
+                    Stream.concat(Stream.of(reference), matched.stream())
+                            .map(Measurement::beacons)
+                            .flatMap(Set::stream)
+                            .collect(toUnmodifiableSet()));
         }
-        throw new IllegalStateException();
+        checkArgument(unmatched.isEmpty());
+        return reference;
     }
 
     private static final List<UnaryOperator<Coordinate3d>> ROTATIONS = Stream
@@ -90,16 +94,14 @@ class Day19 {
             .<UnaryOperator<Coordinate3d>>map(f -> f::apply)
             .toList();
 
-    private static Optional<Arrangement> tryMatch(Measurement first,
-            Measurement second) {
+    private static Optional<Arrangement> tryMatch(
+            Set<Coordinate3d> reference,
+            Collection<Coordinate3d> other) {
         return ROTATIONS.parallelStream()
-                .flatMap(rotation -> allShifts(
-                        second.beacons().stream().map(rotation).toList(),
-                        first.beacons())
-                                .map(shift -> new Arrangement(shift, rotation)))
+                .flatMap(rotation -> allShifts(other.stream().map(rotation).toList(), reference)
+                        .map(shift -> new Arrangement(shift, rotation)))
                 .filter(arrangement -> haveOverlap(
-                        first.beacons(),
-                        second.beacons().stream().map(arrangement::apply)))
+                        reference, other.stream().map(arrangement::apply)))
                 .findAny();
     }
 
@@ -110,8 +112,10 @@ class Day19 {
                 .flatMap(ref -> toShift.stream().map(ref::difference));
     }
 
-    private static boolean haveOverlap(Set<Coordinate3d> first, Stream<Coordinate3d> second) {
-        return second.filter(first::contains).count() >= 12;
+    private static boolean haveOverlap(
+            Set<Coordinate3d> reference,
+            Stream<Coordinate3d> other) {
+        return other.filter(reference::contains).count() >= 12;
     }
 
     static int oceanSize(List<Coordinate3d> beacons) {
