@@ -1,11 +1,11 @@
 package com.example.denaun.aoc2021.day04;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.stream.Collectors.toSet;
 
 import com.google.common.collect.Streams;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.jparsec.Parser;
 
@@ -18,7 +18,7 @@ class Day04 {
         var bingo = PARSER.parse(input);
         var games = bingo.boards().stream()
                 .map(BingoBoard::from)
-                .collect(Collectors.toSet());
+                .collect(toSet());
         return winners(bingo.numbers(), games).findFirst().orElseThrow();
     }
 
@@ -26,7 +26,7 @@ class Day04 {
         var bingo = PARSER.parse(input);
         var games = bingo.boards().stream()
                 .map(BingoBoard::from)
-                .collect(Collectors.toSet());
+                .collect(toSet());
         return Streams.findLast(winners(bingo.numbers(), games)).orElseThrow();
     }
 

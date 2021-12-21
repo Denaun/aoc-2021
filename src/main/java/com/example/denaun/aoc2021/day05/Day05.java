@@ -1,8 +1,9 @@
 package com.example.denaun.aoc2021.day05;
 
+import static java.util.stream.Collectors.toCollection;
+
 import com.google.common.collect.HashMultiset;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.jparsec.Parser;
 
 class Day05 {
@@ -24,7 +25,7 @@ class Day05 {
     static long dangerousAreas(List<Line> lines) {
         return lines.stream()
                 .flatMap(Line::points)
-                .collect(Collectors.toCollection(HashMultiset::create))
+                .collect(toCollection(HashMultiset::create))
                 .entrySet().stream()
                 .filter(entry -> entry.getCount() > 1)
                 .count();

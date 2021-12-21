@@ -1,9 +1,9 @@
 package com.example.denaun.aoc2021.day04;
 
+import static java.util.stream.Collectors.toUnmodifiableMap;
+
 import java.util.BitSet;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 class BingoBoard {
@@ -19,9 +19,7 @@ class BingoBoard {
         this.board = board;
         locations = IntStream.range(0, board.numbers().size())
                 .boxed()
-                .collect(Collectors.toMap(
-                        board.numbers()::get,
-                        Function.identity()));
+                .collect(toUnmodifiableMap(board.numbers()::get, i -> i));
         marked = new BitSet(locations.size());
     }
 

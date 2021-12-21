@@ -1,6 +1,7 @@
 package com.example.denaun.aoc2021.day11;
 
 import static com.google.common.base.Preconditions.checkState;
+import static java.util.stream.Collectors.toCollection;
 
 import com.example.denaun.aoc2021.Coordinate;
 import com.example.denaun.aoc2021.Matrix;
@@ -8,7 +9,6 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 record EnergyMap(Matrix<Integer> data) {
@@ -50,7 +50,7 @@ record EnergyMap(Matrix<Integer> data) {
                 .flatMap(y -> IntStream.range(0, data.columns())
                         .filter(x -> shouldFlash(x, y))
                         .mapToObj(x -> new Coordinate(x, y)))
-                .collect(Collectors.toCollection(LinkedList::new));
+                .collect(toCollection(LinkedList::new));
     }
 
     private void incrementAll() {

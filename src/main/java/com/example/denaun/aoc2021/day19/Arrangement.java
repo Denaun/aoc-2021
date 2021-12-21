@@ -1,7 +1,7 @@
 package com.example.denaun.aoc2021.day19;
 
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 record Arrangement(Coordinate3d shift, UnaryOperator<Coordinate3d> rotation) {
     Coordinate3d apply(Coordinate3d arg) {
@@ -15,6 +15,6 @@ record Arrangement(Coordinate3d shift, UnaryOperator<Coordinate3d> rotation) {
                         .toList(),
                 arg.beacons().stream()
                         .map(this::apply)
-                        .collect(Collectors.toUnmodifiableSet()));
+                        .collect(toUnmodifiableSet()));
     }
 }

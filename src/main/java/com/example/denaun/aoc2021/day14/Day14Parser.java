@@ -2,12 +2,11 @@ package com.example.denaun.aoc2021.day14;
 
 import static com.example.denaun.aoc2021.parsers.AocParsers.LINE_ENDING;
 import static com.example.denaun.aoc2021.parsers.AocParsers.sepPair;
+import static java.util.stream.Collectors.toUnmodifiableMap;
 import static org.jparsec.Scanners.string;
 
-import com.google.common.collect.MoreCollectors;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.jparsec.Parser;
 import org.jparsec.Parsers;
 import org.jparsec.pattern.CharPredicates;
@@ -28,9 +27,7 @@ class Day14Parser {
     private static final Parser<Map<Map.Entry<Element, Element>, Element>> PAIR_INSERTION_RULES =
             PAIR_INSERTION_RULE.endBy1(LINE_ENDING)
                     .map(rules -> rules.stream()
-                            .collect(Collectors.groupingBy(Map.Entry::getKey,
-                                    Collectors.mapping(Map.Entry::getValue,
-                                            MoreCollectors.onlyElement()))));
+                            .collect(toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue)));
 
     static final Parser<PolymerizationInstructions> INPUT =
             sepPair(POLYMER_TEMPLATE, LINE_ENDING, PAIR_INSERTION_RULES,

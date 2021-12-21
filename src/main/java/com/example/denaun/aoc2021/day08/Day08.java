@@ -1,5 +1,7 @@
 package com.example.denaun.aoc2021.day08;
 
+import static java.util.stream.Collectors.toCollection;
+
 import com.google.common.base.Predicates;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
@@ -10,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.jparsec.Parser;
 
@@ -71,7 +72,7 @@ class Day08 {
                 }
                 var segments = signals.stream()
                         .map(encoding::get)
-                        .collect(Collectors.toCollection(() -> EnumSet.noneOf(Segment.class)));
+                        .collect(toCollection(() -> EnumSet.noneOf(Segment.class)));
                 if (!DISPLAY_MAPPING.inverse().containsKey(segments)) {
                     yield Optional.empty();
                 }

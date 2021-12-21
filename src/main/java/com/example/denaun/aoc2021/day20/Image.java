@@ -1,9 +1,9 @@
 package com.example.denaun.aoc2021.day20;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.stream.Collectors.joining;
 
 import com.example.denaun.aoc2021.Matrix;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 record Image(Matrix<Cell> data, Cell rest) {
@@ -62,7 +62,7 @@ record Image(Matrix<Cell> data, Cell rest) {
         return data.data().stream()
                 .map(row -> row.stream()
                         .map(Cell::toString)
-                        .collect(Collectors.joining()))
-                .collect(Collectors.joining("\n"));
+                        .collect(joining()))
+                .collect(joining("\n"));
     }
 }

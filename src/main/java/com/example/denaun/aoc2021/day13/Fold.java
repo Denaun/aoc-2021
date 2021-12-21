@@ -1,9 +1,10 @@
 package com.example.denaun.aoc2021.day13;
 
-import com.example.denaun.aoc2021.Coordinate;
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.stream.Collectors.toUnmodifiableSet;
+
+import com.example.denaun.aoc2021.Coordinate;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 sealed interface Fold {
     Set<Coordinate> apply(Set<Coordinate> dots);
@@ -20,7 +21,7 @@ sealed interface Fold {
                             return new Coordinate(dot.x(), 2 * amount - dot.y());
                         }
                     })
-                    .collect(Collectors.toUnmodifiableSet());
+                    .collect(toUnmodifiableSet());
         }
     }
     static record Vertical(int amount) implements Fold {
@@ -35,7 +36,7 @@ sealed interface Fold {
                             return new Coordinate(2 * amount - dot.x(), dot.y());
                         }
                     })
-                    .collect(Collectors.toUnmodifiableSet());
+                    .collect(toUnmodifiableSet());
         }
     }
 }
