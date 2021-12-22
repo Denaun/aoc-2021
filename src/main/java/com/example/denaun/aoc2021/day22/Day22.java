@@ -11,7 +11,7 @@ class Day22 {
     private static final Parser<List<RebootStep>> PARSER = Day22Parser.INPUT;
     static final Cuboid<Integer> PART1_LIMIT = Cuboid.allClosed(-50, 50);
 
-    static int part1(String input) {
+    static long part1(String input) {
         var steps = PARSER.parse(input);
         var cuboids = CuboidSet.<Integer>create();
         steps.stream()
@@ -19,11 +19,20 @@ class Day22 {
                         .map(cuboid -> new RebootStep(step.state(), cuboid))
                         .stream())
                 .forEach(step -> step.executeOn(cuboids));
-        return cuboids.stream().mapToInt(Day22::cuboidSize).sum();
+        return cuboids.stream().mapToLong(Day22::cuboidSize).sum();
     }
 
-    static int cuboidSize(Cuboid<Integer> cuboid) {
-        return ContiguousSet.create(cuboid.x(), DiscreteDomain.integers()).size()
+    static long part2(String input) {
+        var steps = PARSER.parse(input);
+        var cuboids = CuboidSet.<Integer>create();
+        for (var step : steps) {
+            step.executeOn(cuboids);
+        }
+        return cuboids.stream().mapToLong(Day22::cuboidSize).sum();
+    }
+
+    static long cuboidSize(Cuboid<Integer> cuboid) {
+        return (long) ContiguousSet.create(cuboid.x(), DiscreteDomain.integers()).size()
                 * ContiguousSet.create(cuboid.y(), DiscreteDomain.integers()).size()
                 * ContiguousSet.create(cuboid.z(), DiscreteDomain.integers()).size();
     }
