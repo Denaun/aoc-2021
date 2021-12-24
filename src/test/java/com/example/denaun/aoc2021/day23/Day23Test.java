@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day23;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
@@ -38,8 +37,14 @@ public class Day23Test extends AocTestCase {
     }
 
     @Test
+    public void example2() {
+        assertThat(Day23.minimumCost(new Burrow(Day23.unfold(EXAMPLE_INPUT))))
+                .isEqualTo(44_169);
+    }
+
+    @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day23.part2(input)).isEqualTo(52_358);
     }
 }
