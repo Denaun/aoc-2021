@@ -1,7 +1,6 @@
 package com.example.denaun.aoc2021.day24;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import com.example.denaun.aoc2021.AocTestCase;
 import java.io.IOException;
@@ -19,9 +18,10 @@ public class Day24Test extends AocTestCase {
         assertThat(Day24.part1(input)).isEqualTo(99_429_795_993_929L);
     }
 
+
     @Test
     @Override
     public void part2() {
-        assertTrue("unimplemented", true);
+        assertThat(Day24.part2(input)).isEqualTo(18_113_181_571_611L);
     }
 }

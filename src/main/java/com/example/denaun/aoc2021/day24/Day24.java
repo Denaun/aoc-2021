@@ -1,11 +1,11 @@
 package com.example.denaun.aoc2021.day24;
 
 import static com.google.common.base.Preconditions.checkState;
-import static com.google.common.base.Verify.verify;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import org.jparsec.Parser;
 
@@ -14,18 +14,38 @@ class Day24 {
 
     private static final Supplier<Parser<List<Instruction>>> PARSER = Day24Parser::input;
 
-    static long part1(String input) {
-        var instructions = PARSER.get().parse(input);
-        return crack(instructions);
+    enum Preference implements Consumer<List<Integer>> {
+        LARGEST {
+            @Override
+            public void accept(List<Integer> input) {
+                input.set(input.size() - 1, 9);
+            }
+        },
+        SMALLEST {
+            @Override
+            public void accept(List<Integer> input) {
+                input.set(input.size() - 1, 1);
+            }
+        };
     }
 
-    static long crack(List<Instruction> instructions) {
+    static long part1(String input) {
+        var instructions = PARSER.get().parse(input);
+        return crack(instructions, Preference.LARGEST);
+    }
+
+    static long part2(String input) {
+        var instructions = PARSER.get().parse(input);
+        return crack(instructions, Preference.SMALLEST);
+    }
+
+    static long crack(List<Instruction> instructions, Consumer<List<Integer>> preference) {
         var input = new ArrayList<Integer>();
         for (var i = 0; i < 14; ++i) {
             var threshold = run(instructions, input) / 10;
             input.add(0);
             if (!searchImprovement(instructions, input, i, threshold)) {
-                verify(input.get(i) == 9);
+                preference.accept(input);
                 for (var j = 0; j < i; ++j) {
                     var prev = input.get(j);
                     if (searchImprovement(instructions, input, j, threshold)) {
